@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Text-based Music Player</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #3498db; /* Plane background color */
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            color: #fff; /* Text color */
+        }
+
+        #player-container {
+            width: 60%;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #34495e; /* Player background color */
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+        }
+
+        #marquee-container {
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        #marquee-text {
+            white-space: nowrap;
+            font-size: 24px;
+        }
+
+        #header-marquee {
+            background-color: #2c3e50;
+            padding: 10px 0;
+        }
+
+        #controls {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        #controls button {
+            background-color: #2ecc71; /* Button background color */
+            color: #fff; /* Button text color */
+            border: none;
+            border-radius: 10px;
+            padding: 15px 25px; /* Larger button size */
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        #controls button:hover {
+            background-color: #27ae60; /* Button hover color */
+        }
+
+        #controls i {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+
+
+<div id="header-marquee">
+    <marquee direction="left" behavior="scroll" scrollamount="4">
+        Developed by Sheetal Pisal. A Text-based Music Player using Javascipt. How's it ?????
+    </marquee>
+</div>
+
+
+<div id="player-container">
+    <div id="marquee-container">
+        <marquee id="marquee-text" behavior="scroll" direction="left" scrollamount="5">Song Title - Artist</marquee>
+    </div>
+    
+    <div id="controls">
+        <button onclick="prevArtist()"><i class="fas fa-step-backward"></i> Previous</button>
+        <button onclick="skipBackward()"><i class="fas fa-backward"></i> Skip Backward</button>
+        <button onclick="playPause()"><i class="fas fa-play"></i>/<i class="fas fa-pause"></i> Play/Pause</button>
+        <button onclick="skipForward()"><i class="fas fa-forward"></i> Skip Forward</button>
+        <button onclick="nextArtist()">Next <i class="fas fa-step-forward"></i></button>
+    </div>
+</div>
+
+<script>
+    var songs = ["I Want Badi Wali Cadbury", "Song 1 - Artist 1", "Song 2 - Artist 2", "Song 3 - Artist 3"];
+    var currentIndex = 0;
+    var marquee = document.getElementById('marquee-text');
+    var controls = document.getElementById('controls');
+    var isPlaying = false;
+
+    function updateMarquee() {
+        marquee.innerText = songs[currentIndex];
+    }
+
+    function playPause() {
+        if (!isPlaying) {
+            marquee.start();
+            controls.children[2].innerHTML = '<i class="fas fa-pause"></i> Pause';
+        } else {
+            marquee.stop();
+            controls.children[2].innerHTML = '<i class="fas fa-play"></i> Play';
+        }
+        isPlaying = !isPlaying;
+    }
+
+    function skipForward() {
+        currentIndex = (currentIndex + 1) % songs.length;
+        updateMarquee();
+        if (isPlaying) {
+            marquee.start(); // Automatically play the next song
+        }
+    }
+
+    function skipBackward() {
+        currentIndex = (currentIndex - 1 + songs.length) % songs.length;
+        updateMarquee();
+        if (isPlaying) {
+            marquee.start(); // Automatically play the previous song
+        }
+    }
+
+    function nextArtist() {
+        currentIndex = (currentIndex + 1) % songs.length;
+        updateMarquee();
+        if (isPlaying) {
+            marquee.start(); // Automatically play the next song
+        }
+    }
+
+    function prevArtist() {
+        currentIndex = (currentIndex - 1 + songs.length) % songs.length;
+        updateMarquee();
+        if (isPlaying) {
+            marquee.start(); // Automatically play the previous song
+        }
+    }
+
+    // Initial setup
+    updateMarquee();
+</script>
+
+</body>
+</html>
