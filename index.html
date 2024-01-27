@@ -110,10 +110,10 @@
     function playPause() {
         if (!isPlaying) {
             marquee.start();
-            controls.children[2].innerHTML = '<i class="fas fa-pause"></i> Pause';
+            controls.children[2].innerHTML = '<i class="fas fa-pause"></i> ';
         } else {
             marquee.stop();
-            controls.children[2].innerHTML = '<i class="fas fa-play"></i> Play';
+            controls.children[2].innerHTML = '<i class="fas fa-play"></i> ';
         }
         isPlaying = !isPlaying;
     }
