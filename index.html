@@ -50,13 +50,13 @@
             gap: 20px;
         }
 
-        #controls button {
-            background-color: #007bff;
-            color: #fff;
+      #controls button {
+            background-color: #61dafb;
+            color: #282c34;
             border: none;
             border-radius: 10px;
-            padding: 20px;
-            font-size: 14px;
+            padding: 15px 20px;
+            font-size: 18px;
             cursor: pointer;
             transition: background-color 0.3s ease-in-out;
         }
@@ -68,7 +68,8 @@
         #controls i {
             margin-right: 10px;
         }
-@keyframes marquee {
+
+        @keyframes marquee {
             0% {
                 transform: translateX(100%);
             }
@@ -93,9 +94,9 @@
     <div id="controls">
         <button onclick="prevArtist()"><i class="fas fa-step-backward"></i></button>
         <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
-        <button onclick="playPause()"><i class="fas fa-play"></i>/<i class="fas fa-pause"></i> </button>
-        <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
-        <button onclick="nextArtist()"> <i class="fas fa-step-forward"></i></button>
+        <button onclick="playPause()"><i class="fas fa-play"></i>/<i class="fas fa-pause"></i></button>
+        <button onclick="skipForward()"><i class="fas fa-forward"></i> </button>
+        <button onclick="nextArtist()"><i class="fas fa-step-forward"></i></button>
     </div>
 
     <div id="footer">
@@ -105,7 +106,7 @@
 </div>
 
 <script>
-    var songs = ["Song 1 - Artist 1", "Song 2 - Artist 2", "Song 3 - Artist 3"];
+    var songs = ["I want Badi Wali Cadbury","Song 1 - Artist 1", "Song 2 - Artist 2", "Song 3 - Artist 3"];
     var currentIndex = 0;
     var marquee = document.getElementById('marquee-text');
     var controls = document.getElementById('controls');
@@ -118,21 +119,22 @@
     function playPause() {
         if (!isPlaying) {
             marquee.start();
-            controls.children[2].innerHTML = '<i class="fas fa-pause"></i> ';
+            controls.children[2].innerHTML = '<i class="fas fa-pause"></i>';
         } else {
             marquee.stop();
-            controls.children[2].innerHTML = '<i class="fas fa-play"></i> ';
+            controls.children[2].innerHTML = '<i class="fas fa-play"></i>';
         }
         isPlaying = !isPlaying;
     }
 
     function skipForward() {
-        currentIndex = (currentIndex + 1) % songs.length;
+        currentIndex = (currentIndex + 1 + songs.length) % songs.length;
         updateMarquee();
         if (isPlaying) {
-            marquee.start(); 
-             marquee.setAttribute("direction", "right"); 
+                marquee.setAttribute("direction", "right"); 
             marquee.scrollAmount = 15; 
+            marquee.start(); 
+           
         }
     }
 
@@ -140,9 +142,10 @@
         currentIndex = (currentIndex - 1 + songs.length) % songs.length;
         updateMarquee();
         if (isPlaying) {
-            marquee.start(); 
-             marquee.setAttribute("direction", "right"); 
-            marquee.scrollAmount = 3; 
+            marquee.setAttribute("direction", "right"); 
+            marquee.scrollAmount = 15; 
+            marquee.start();
+           
         }
     }
 
@@ -150,8 +153,8 @@
         currentIndex = (currentIndex + 1) % songs.length;
         updateMarquee();
         if (isPlaying) {
-            marquee.start(); 
-            
+            marquee.setAttribute("direction", "left"); 
+            marquee.start(); // Automatically play the next song
         }
     }
 
@@ -159,11 +162,14 @@
         currentIndex = (currentIndex - 1 + songs.length) % songs.length;
         updateMarquee();
         if (isPlaying) {
-            marquee.start(); // Automatically play the previous song
+
+            marquee.start(); 
+            marquee.setAttribute("direction", "left"); 
         }
     }
+    
 
-    // Initial setup
+    
     updateMarquee();
 </script>
 
